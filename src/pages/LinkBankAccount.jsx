@@ -1,44 +1,41 @@
-import { useCallback, useEffect, useState } from "react"
-import { createLinkToken } from "../api/LinkTokenApi"
+import { useState } from "react"
+import { createLinkToken, setPublicToken } from "../api/BankAccountLinkApi"
 import { settings } from "../constants/settings"
-import useDocumentTitle from "../hooks/useDocumentTitle"
 import { usePlaidLink } from "react-plaid-link"
+import useDocumentTitle from "../hooks/useDocumentTitle"
+import Button from "react-bootstrap/Button"
 
 export const LinkBankAccount = () => {
   useDocumentTitle("Asociar cuenta bancaria – Balancer")
 
   const [linkToken, setLinkToken] = useState(null)
 
-  useEffect(() => {
-    const callCreateLinkToken = async () => {
-      const linkToken = await createLinkToken(settings.defaultUser.id)
-      setLinkToken(linkToken)
-    }
-
-    // callCreateLinkToken()
-  }, [])
-
-  const onSuccess = useCallback((publicToken, metadata) => {
-    // send public_token to your server
-    // https://plaid.com/docs/api/tokens/#token-exchange-flow
-    console.log(publicToken);
-  }, [])
-
-  console.log(linkToken)
+  const onSuccess = async (publicToken, metadata) => {
+    console.log("Plaid Link success")
+    console.log("Setting publicToken", publicToken)
+    await setPublicToken(settings.defaultUser.id, publicToken)
+    console.log("Public token set")
+  }
 
   const { open, ready } = usePlaidLink({
     token: linkToken,
-    onSuccess: onSuccess,
-    // onEvent
-    // onExit
+    onSuccess: onSuccess
   })
 
+  const preparePlaidLink = async () => {
+    console.log(`Preparing Plaid Link for user ${settings.defaultUser.id}`)
+    const linkToken = await createLinkToken(settings.defaultUser.id)
+    console.log(`Got link token: ${linkToken}`)
+    setLinkToken(linkToken)
+    console.log("Plaid Link ready")
+  }
+
   return (
-    <article>
-      <h1>Asociar cuenta bancaria</h1>
+    <div className="text-center">
+      <h1 className="mb-4">Asociar cuenta bancaria</h1>
       <p>Asocia una cuenta bancaria para conocer de forma instantánea actualizaciones sobre tus gastos.</p>
-      <button onClick={() => open()} disabled={!ready}>Conectar una cuenta bancaria</button>
-      <p>Link token: {linkToken}</p>
-    </article>
+      <p><Button variant="primary" onClick={preparePlaidLink}>Preparar Link</Button></p>
+      <p><Button variant="primary" onClick={open} disabled={!ready}>Conectar una cuenta bancaria</Button></p>
+    </div>
   )
 }
