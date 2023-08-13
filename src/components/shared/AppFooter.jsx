@@ -1,6 +1,4 @@
 export const AppFooter = () => {
-  const year = new Date().getFullYear()
-
   return (
     <footer>
       <p>Balancer</p>

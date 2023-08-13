@@ -1,6 +1,6 @@
 import { AppHeader } from "../components/shared/AppHeader";
 import { AppFooter } from "../components/shared/AppFooter";
-import { createContext, useEffect, useRef, useState } from "react";
+import { createContext } from "react";
 
 export const MainContext = createContext(undefined)
 
