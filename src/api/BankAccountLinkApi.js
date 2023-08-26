@@ -6,15 +6,16 @@ const BankAccountLink = axios.create({
 })
 
 export const createLinkToken = async (userId) => {
-  const response = await BankAccountLink.post("/v1/bank-account-link/create-link-token", {
+  const response = await BankAccountLink.post("/v1/bank-link/create-link-token", {
     userId
   })
   return response.data.linkToken
 }
 
-export const setPublicToken = async (userId, publicToken) => {
-  const response = await BankAccountLink.post("/v1/bank-account-link/set-public-token", {
+export const setPublicToken = async (userId, institutionId, publicToken) => {
+  const response = await BankAccountLink.post("/v1/bank-link/set-public-token", {
     userId,
+    institutionId,
     publicToken
   })
   return response.data

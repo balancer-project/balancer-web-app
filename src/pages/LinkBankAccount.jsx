@@ -13,7 +13,8 @@ export const LinkBankAccount = () => {
   const onSuccess = async (publicToken, metadata) => {
     console.log("Plaid Link success")
     console.log("Setting publicToken", publicToken)
-    await setPublicToken(settings.defaultUser.id, publicToken)
+    console.log("With metadata", metadata)
+    await setPublicToken(settings.defaultUser.id, metadata.institution.institution_id, publicToken)
     console.log("Public token set")
   }
 
