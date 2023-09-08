@@ -1,8 +1,8 @@
-import { MainContextProvider } from "./context/MainContext";
-import { routes } from "./routes";
+import "bootstrap/dist/css/bootstrap.min.css";
 import { useRoutes } from "react-router";
-import "./css/app.css"
-import "bootstrap/dist/css/bootstrap.min.css"
+import { MainContextProvider } from "./context/MainContext";
+import "./css/app.css";
+import { routes } from "./routes";
 
 const App = () => {
   let routesElement = useRoutes(routes)
