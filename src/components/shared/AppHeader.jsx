@@ -8,7 +8,8 @@ export const AppHeader = () => {
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="app-navbar-nav">
           <Nav className="me-auto">
-            <Nav.Link href="/">Panel</Nav.Link>
+            <Nav.Link href="/">Inicio</Nav.Link>
+            <Nav.Link href="/expenses">Gastos</Nav.Link>
             <NavDropdown title="Cuentas bancarias" id="bank-accounts-nav-dropdown">
               <NavDropdown.Item href="/bank-accounts/link">Asociar cuenta</NavDropdown.Item>
             </NavDropdown>

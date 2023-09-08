@@ -22,6 +22,6 @@ const setPublicToken = async (userId, institutionId, publicToken) => {
 }
 
 export const BankLinkApi = {
-  createLinkToken: createLinkToken,
-  setPublicToken: setPublicToken
+  createLinkToken,
+  setPublicToken
 }

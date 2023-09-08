@@ -32,11 +32,11 @@ export const LinkBankAccount = () => {
   }
 
   return (
-    <div className="text-center">
+    <article className="text-center">
       <h1 className="mb-4">Asociar cuenta bancaria</h1>
       <p>Asocia una cuenta bancaria para conocer de forma instantánea actualizaciones sobre tus gastos.</p>
       <p><Button variant="primary" onClick={preparePlaidLink}>Preparar Link</Button></p>
       <p><Button variant="primary" onClick={open} disabled={!ready}>Conectar una cuenta bancaria</Button></p>
-    </div>
+    </article>
   )
 }

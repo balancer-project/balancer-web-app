@@ -5,7 +5,7 @@ export const Home = () => {
 
   return (
     <article>
-      <h1>Balancer</h1>
+      <h1 className="mb-4">Balancer</h1>
     </article>
   )
 }
