@@ -21,27 +21,21 @@ export const OneTimeExpenseBody = ({
   return (
     <Accordion.Body>
       <Container className="body one-time py-3">
-        <Row className="mb-4">
-          <Col xs="7">
-            <h1 className="amount mb-2">-{amount.toFixed(2)} €</h1>
-            <h4 className="concept mb-2">{concept}</h4>
-            <span className="text-muted">Cantidad {amountType.humanName}</span>
-          </Col>
+        <div className="text-center pt-2 pb-4 mb-3 border-bottom">
+          <h1 className="amount mb-2">-{amount.toFixed(2)} €</h1>
+          <h4 className="concept mb-2">{concept}</h4>
+          <small className="text-muted">Cantidad {amountType.humanName}</small>
+        </div>
+        <Row className="mb-4 justify-content-between">
           <Col>
-            <div className="mb-1">
-              <Col>
-                <PiCoinsLight /> Puntual
-                <Badge className="ms-2" bg={oneTimeExpenseStatus === OneTimeExpenseStatus.Done ? "success" : "secondary"}>
-                  {capitalize(oneTimeExpenseStatus.humanName)}
-                </Badge>
-              </Col>
-            </div>
-            <div>
-              {category.icon} {capitalize(category.humanName)}
-            </div>
+            <PiCoinsLight /> Puntual
+            <Badge className="ms-2" bg={oneTimeExpenseStatus === OneTimeExpenseStatus.Active ? "success" : "secondary"}>
+              {capitalize(oneTimeExpenseStatus.humanName)}
+            </Badge>
           </Col>
+          <Col className="text-end">{category.icon} {capitalize(category.humanName)}</Col>
         </Row>
-        <PaymentsList payments={[payment]} single />
+        <PaymentsList payments={payment ? [payment] : []} single />
         { comments !== "" ?
           <div className="small mb-3">
             <p className="text-muted">Comentarios</p>

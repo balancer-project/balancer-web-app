@@ -3,7 +3,7 @@ import { PaymentsListItem } from "./PaymentsListItem"
 
 export const PaymentsList = ({ payments, single = false }) => {
   return (
-    <div className="expense-payments-list small mb-3">
+    <div className="expense-payments-list small mb-4">
       <div className="text-muted mb-1">{single ? "Pago asociado" : "Pagos asociados"}</div>
 
       <ListGroup>
@@ -12,7 +12,7 @@ export const PaymentsList = ({ payments, single = false }) => {
           <ListGroup.Item className="text-muted">
             <Container className="m-0">
               <Row>
-                <Col lg={1}>#</Col>
+                {!single ? <Col lg={1}>#</Col> : <></>}
                 <Col lg={3}>Fecha</Col>
                 <Col lg={2}>Estado</Col>
                 <Col className="text-end">Cantidad</Col>
@@ -20,7 +20,7 @@ export const PaymentsList = ({ payments, single = false }) => {
             </Container>
           </ListGroup.Item>
           {payments.map((payment, index) =>
-            <PaymentsListItem {...payment} key={payment.id} index={payments.length - index} />)}
+            <PaymentsListItem {...payment} key={payment.id} index={payments.length - index} single={single} />)}
         </>
         : <ListGroup.Item>
           {single ? "No se ha encontrado ningún pago asociado a este gasto" : "No se han encontrado pagos asociados a este gasto"}

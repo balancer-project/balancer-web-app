@@ -30,7 +30,7 @@ export const map = (original) => {
       authorizationDate: parseDate(payment.authorizationDate),
       postDate: parseDate(payment.postDate)
     })),
-    payment: original.payment !== undefined ?
+    payment: original.payment ?
       {
         ...original.payment,
         status: ExpensePaymentStatus.from(original.payment.status),

@@ -1,6 +1,7 @@
 :root {
   --primary: #6200ee;
   --primary-variant: #3700b3;
+  --primary-200: #caa4ff;
   --primary-100: #e3d3fa;
   --primary-50: #f4ecff;
   --primary-alpha-50: rgba(55, 0, 179, 0.25);
@@ -36,15 +37,23 @@ html, body {
 }
 
 .loader-line {
-  width: 200px;
+  width: 100%;
   height: 3px;
   position: relative;
   overflow: hidden;
   background-color: #ddd;
-  margin: 100px auto;
-  -webkit-border-radius: 20px;
-  -moz-border-radius: 20px;
   border-radius: 20px;
+}
+
+.loader-wrapper {
+  width: 100%;
+  height: 3px;
+  opacity: 1;
+  transition: opacity .3s;
+}
+
+.loader-wrapper.hidden {
+  opacity: 0;
 }
 
 .loader-line:before {
@@ -53,7 +62,7 @@ html, body {
   left: -50%;
   height: 3px;
   width: 40%;
-  background-color: var(--primary-variant);
+  background-color: var(--primary-200);
   -webkit-animation: loaderLineAnimation 1s linear infinite;
   -moz-animation: loaderLineAnimation 1s linear infinite;
   animation: loaderLineAnimation 1s linear infinite;
