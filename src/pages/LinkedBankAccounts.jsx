@@ -1,44 +1,44 @@
 import { useEffect, useState } from "react"
 import { Button, Col, Container, Row } from "react-bootstrap"
 import { TfiReload } from "react-icons/tfi"
-import { ExpensesApi } from "../api/ExpensesApi"
-import { ExpensesList } from "../components/expenses/expenses-list/ExpensesList"
+import { BankLinkApi } from "../api/BankLinkApi"
+import { BankLinksList } from "../components/bank-links/bank-links-list/BankLinksList"
 import { settings } from "../constants/settings"
 import useDocumentTitle from "../hooks/useDocumentTitle"
 
-export const Expenses = () => {
-  useDocumentTitle("Mis gastos – Balancer")
+export const LinkedBankAccounts = () => {
+  useDocumentTitle("Mis cuentas bancarias – Balancer")
 
-  const [expenses, setExpenses] = useState([])
+  const [bankLinks, setBankLinks] = useState([])
   const [loading, setLoading] = useState(false)
   const [preloaded, setPreloaded] = useState(false)
 
-  const loadExpenses = () => {
+  const loadBankLinks = () => {
     setLoading(true)
 
-    ExpensesApi
-      .findExpenses(settings.defaultUser.id)
-      .then(response => setExpenses(response))
+    BankLinkApi
+      .findAllBankLinks(settings.defaultUser.id)
+      .then(response => setBankLinks(response))
       .finally(() => {
         setLoading(false)
         setPreloaded(true)
       })
   }
 
-  useEffect(loadExpenses, [])
+  useEffect(loadBankLinks, [])
 
   return (
     <article>
       <Container className="align-items-center">
         <Row>
-          <Col><h1 className="mb-4">Mis gastos</h1></Col>
-          <Col className="text-end"><Button disabled={!preloaded || loading} variant="secondary" onClick={loadExpenses}><TfiReload /> Actualizar</Button></Col>
+          <Col><h1 className="mb-4">Mis cuentas bancarias</h1></Col>
+          <Col className="text-end"><Button disabled={!preloaded || loading} variant="secondary" onClick={loadBankLinks}><TfiReload /> Actualizar</Button></Col>
         </Row>
       </Container>
       <Container style={{maxWidth: "970px"}}>
         <Row className="justify-content-center">
           <Col>
-            <ExpensesList expenses={expenses} loading={loading} />
+            <BankLinksList bankLinks={bankLinks} loading={loading} />
           </Col>
         </Row>
       </Container>

@@ -7,6 +7,7 @@
   --primary-alpha-50: rgba(55, 0, 179, 0.25);
   --error: #b00020;
   --dark-gray: #666666;
+  --success-50: #dff6ef;
 }
 
 html, body, div, span, applet, object, iframe,
@@ -100,6 +101,24 @@ html, body {
   margin-top: -3px;
 }
 
+.bank-links-list-item .institution-icon {
+  background-color: var(--primary-100);
+  border-radius: 50%;
+  width: 2rem;
+  height: 2rem;
+  text-align: center;
+  line-height: 2rem;
+  margin-top: -5px;
+  margin-bottom: -5px;
+}
+
+.bank-links-list-item .institution-icon-big {
+  width: 7rem;
+  height: 7rem;
+  border-radius: 3.5rem;
+  box-shadow: 0 0 0 0.25rem var(--primary-alpha-50) !important;
+}
+
 .accordion-button:not(.collapsed) {
   background-color: var(--primary-50) !important;
 }
@@ -110,4 +129,17 @@ html, body {
 
 .expenses-list-item .body .concept {
   color: var(--dark-gray)
+}
+
+.link-bank-account-success-card {
+  background-color: var(--success-50);
+  max-width: 17rem;
+  margin: 0 auto;
+  border-radius: 0.375rem;
+}
+
+.link-bank-account-success-card svg {
+  width: 2rem;
+  height: 2rem;
+  margin-bottom: 1rem;
 }

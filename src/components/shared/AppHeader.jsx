@@ -9,8 +9,11 @@ export const AppHeader = () => {
         <Navbar.Collapse id="app-navbar-nav">
           <Nav className="me-auto">
             <Nav.Link href="/">Inicio</Nav.Link>
-            <Nav.Link href="/expenses">Gastos</Nav.Link>
+            <NavDropdown title="Gastos" id="expenses-nav-dropdown">
+              <NavDropdown.Item href="/expenses">Mis gastos</NavDropdown.Item>
+            </NavDropdown>
             <NavDropdown title="Cuentas bancarias" id="bank-accounts-nav-dropdown">
+              <NavDropdown.Item href="/bank-accounts">Mis cuentas</NavDropdown.Item>
               <NavDropdown.Item href="/bank-accounts/link">Asociar cuenta</NavDropdown.Item>
             </NavDropdown>
           </Nav>

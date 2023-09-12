@@ -11,6 +11,11 @@ export const RecurringExpenseFrequencyType = Object.freeze({
     humanName: "mensual",
     humanNameWithParameter: (_parameter) => "el último día del mes"
   },
+  monthly_unknown: {
+    name: "monthly_unknown",
+    humanName: "mensual",
+    humanNameWithParameter: (_parameter) => "mensual"
+  },
   weekly_exact_day_of_week: {
     name: "weekly_exact_day_of_week",
     humanName: "semanal",

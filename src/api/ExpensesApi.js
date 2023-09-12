@@ -7,7 +7,7 @@ const ExpensesClient = axios.create({
 })
 
 const findExpenses = async (userId) => {
-  await new Promise(r => setTimeout(r, 2000));
+  await new Promise(r => setTimeout(r, 1000));
 
   return await ExpensesClient
     .get(`/v1/users/${userId}/expenses`)
