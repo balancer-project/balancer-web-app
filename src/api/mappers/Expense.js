@@ -28,14 +28,14 @@ export const map = (original) => {
       ...payment,
       status: ExpensePaymentStatus.from(payment.status),
       authorizationDate: parseDate(payment.authorizationDate),
-      postDate: parseDate(payment.postDate)
+      date: parseDate(payment.date)
     })),
     payment: original.payment ?
       {
         ...original.payment,
         status: ExpensePaymentStatus.from(original.payment.status),
         authorizationDate: parseDate(original.payment.authorizationDate),
-        postDate: parseDate(original.payment.postDate)
+        date: parseDate(original.payment.date)
       }
       : undefined,
     createdAt: parseDate(original.createdAt),

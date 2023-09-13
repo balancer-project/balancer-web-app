@@ -29,7 +29,7 @@ export const OneTimeExpenseBody = ({
         <Row className="mb-4 justify-content-between">
           <Col>
             <PiCoinsLight /> Puntual
-            <Badge className="ms-2" bg={oneTimeExpenseStatus === OneTimeExpenseStatus.Active ? "success" : "secondary"}>
+            <Badge className="ms-2" bg={oneTimeExpenseStatus === OneTimeExpenseStatus.Done ? "success" : "secondary"}>
               {capitalize(oneTimeExpenseStatus.humanName)}
             </Badge>
           </Col>

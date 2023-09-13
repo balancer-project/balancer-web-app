@@ -43,7 +43,7 @@ export const RecurringExpenseBody = ({
           <Col><PiCalendarLight /> {capitalize(frequency.humanName)}</Col>
           <Col>{category.icon} {capitalize(category.humanName)}</Col>
         </Row>
-        <PaymentsList payments={payments} />
+        <PaymentsList payments={[...payments].reverse()} />
         { comments !== "" ?
           <div className="small mb-3">
             <p className="text-muted">Comentarios</p>
