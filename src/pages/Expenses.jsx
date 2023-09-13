@@ -28,7 +28,7 @@ export const Expenses = () => {
   useEffect(loadExpenses, [])
 
   return (
-    <article>
+    <article className="py-5">
       <Container className="align-items-center">
         <Row>
           <Col><h1 className="mb-4">Mis gastos</h1></Col>

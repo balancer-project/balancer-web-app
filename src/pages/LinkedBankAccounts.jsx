@@ -28,7 +28,7 @@ export const LinkedBankAccounts = () => {
   useEffect(loadBankLinks, [])
 
   return (
-    <article>
+    <article className="py-5">
       <Container className="align-items-center">
         <Row>
           <Col><h1 className="mb-4">Mis cuentas bancarias</h1></Col>

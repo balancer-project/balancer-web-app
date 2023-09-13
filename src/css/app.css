@@ -37,6 +37,20 @@ html, body {
   font-family: "Work Sans", -apple-system, system-ui, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, "Helvetica Neue", Arial, sans-serif;
 }
 
+body {
+  padding-bottom: 5rem;
+}
+
+.footer-wrapper {
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  padding: 2rem;
+  background-color: #ffffff;
+  box-shadow: 0 0px 10px rgba(0,0,0,0.1);
+}
+
 .loader-line {
   width: 100%;
   height: 3px;
