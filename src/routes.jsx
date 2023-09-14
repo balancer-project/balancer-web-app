@@ -1,3 +1,4 @@
+import { AddOneTimeExpense } from "./pages/AddOneTimeExpense"
 import { Expenses } from "./pages/Expenses"
 import { Home } from "./pages/Home"
 import { LinkBankAccount } from "./pages/LinkBankAccount"
@@ -20,6 +21,10 @@ export const routes = [
   {
     path: "/expenses",
     element: <Expenses />
+  },
+  {
+    path: "/expenses/one-time/add",
+    element: <AddOneTimeExpense />
   },
   {
     path: "*",

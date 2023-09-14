@@ -1,14 +1,18 @@
 import { useEffect, useState } from "react"
 import Button from "react-bootstrap/Button"
-import { PiCheckLight } from "react-icons/pi"
+import { PiArrowRight } from "react-icons/pi"
 import { usePlaidLink } from "react-plaid-link"
+import { useNavigate } from "react-router-dom"
 import { BankLinkApi } from "../api/BankLinkApi"
+import { SuccessCard } from "../components/shared/SuccessCard"
 import { settings } from "../constants/settings"
 import useDocumentTitle from "../hooks/useDocumentTitle"
 import bankAccountImg from "../images/bank-account.svg"
 
 export const LinkBankAccount = () => {
   useDocumentTitle("Asociar cuenta bancaria – Balancer")
+
+  const navigate = useNavigate()
 
   const [linkToken, setLinkToken] = useState(null)
   const [accountLinked, setAccountLinked] = useState(false)
@@ -40,18 +44,18 @@ export const LinkBankAccount = () => {
   return (
     <article className="text-center">
       <img src={bankAccountImg} alt="Cuenta bancaria" className="mt-5 mb-5" style={{width: "10rem"}} />
-      <h1 className="mb-4">Asociar una cuenta bancaria</h1>
-      <p>Asocia una cuenta bancaria para conocer de forma instantánea actualizaciones sobre tus gastos.</p>
-      <div className="mt-5 mb-5">
+      <div className="mb-5">
         {
-          accountLinked ?
-          <div className="link-bank-account-success-card p-3">
-            <PiCheckLight />
-            <p>¡Enhorabuena!</p>
-            <p>Tu cuenta bancaria está asociada.</p>
-          </div>
-          :
-          <p><Button variant="outline-dark" onClick={open} disabled={!ready}>Conectar una cuenta bancaria</Button></p>
+          accountLinked ? (
+            <SuccessCard text="Tu cuenta bancaria está asociada." button={
+              <Button variant="outline-dark" onClick={() => navigate("/bank-accounts")}>Ver mis cuentas <PiArrowRight /></Button>
+            } />
+          ) :
+          <>
+            <h1 className="mb-4">Asociar una cuenta bancaria</h1>
+            <p>Asocia una cuenta bancaria para conocer de forma instantánea actualizaciones sobre tus gastos.</p>
+            <p className="mt-5"><Button variant="outline-dark" onClick={open} disabled={!ready}>Conectar una cuenta bancaria</Button></p>
+          </>
         }
       </div>
     </article>

@@ -12,5 +12,6 @@ export const ExpensePaymentMethod = Object.freeze({
     humanName: "cargo en cuenta",
   },
 
-  from: (name) => ExpensePaymentMethod[Object.keys(ExpensePaymentMethod).find(key => ExpensePaymentMethod[key].name === name)]
+  from: (name) => ExpensePaymentMethod[Object.keys(ExpensePaymentMethod).find(key => ExpensePaymentMethod[key].name === name)],
+  values: () => Object.keys(ExpensePaymentMethod).filter(key => typeof ExpensePaymentMethod[key] !== 'function').map(key => ExpensePaymentMethod[key])
 })

@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react"
+import { useEffect, useRef, useState } from "react"
 import { Button, Col, Container, Row } from "react-bootstrap"
 import { TfiReload } from "react-icons/tfi"
 import { ExpensesApi } from "../api/ExpensesApi"
@@ -10,12 +10,12 @@ export const Expenses = () => {
   useDocumentTitle("Mis gastos – Balancer")
 
   const [expenses, setExpenses] = useState([])
-  const [loading, setLoading] = useState(false)
+  const [loading, setLoading] = useState(true)
   const [preloaded, setPreloaded] = useState(false)
 
-  const loadExpenses = () => {
-    setLoading(true)
+  const polling = useRef(true)
 
+  const loadExpenses = () => {
     ExpensesApi
       .findExpenses(settings.defaultUser.id)
       .then(response => setExpenses(response))
@@ -25,7 +25,23 @@ export const Expenses = () => {
       })
   }
 
-  useEffect(loadExpenses, [])
+  useEffect(
+    () => {
+      console.log("Starting polling...")
+      const poll = async () => {
+        if (polling.current) {
+          while (true) {
+            await new Promise(r => setTimeout(r, 1000))
+            loadExpenses()
+          }
+        }
+      }
+      poll();
+      return () => {
+        polling.current = false
+      }
+    }, []
+  )
 
   return (
     <article className="py-5">

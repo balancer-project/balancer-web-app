@@ -77,5 +77,6 @@ export const ExpenseCategory = Object.freeze({
     icon: <PiCloudLight />
   },
 
-  from: (name) => ExpenseCategory[Object.keys(ExpenseCategory).find(key => ExpenseCategory[key].name === name)]
+  from: (name) => ExpenseCategory[Object.keys(ExpenseCategory).find(key => ExpenseCategory[key].name === name)],
+  values: () => Object.keys(ExpenseCategory).filter(key => typeof ExpenseCategory[key] !== 'function').map(key => ExpenseCategory[key])
 })
