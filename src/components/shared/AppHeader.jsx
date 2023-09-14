@@ -11,6 +11,7 @@ export const AppHeader = () => {
             <Nav.Link href="/">Inicio</Nav.Link>
             <NavDropdown title="Gastos" id="expenses-nav-dropdown">
               <NavDropdown.Item href="/expenses">Mis gastos</NavDropdown.Item>
+              <NavDropdown.Item href="/expenses/recurring/add">Nuevo gasto recurrente</NavDropdown.Item>
               <NavDropdown.Item href="/expenses/one-time/add">Nuevo gasto puntual</NavDropdown.Item>
             </NavDropdown>
             <NavDropdown title="Cuentas bancarias" id="bank-accounts-nav-dropdown">

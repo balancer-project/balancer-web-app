@@ -8,31 +8,39 @@ import { SuccessCard } from "../components/shared/SuccessCard"
 import { settings } from "../constants/settings"
 import { capitalize } from "../helpers/String"
 import useDocumentTitle from "../hooks/useDocumentTitle"
-import piggyPlusImg from "../images/piggy-plus.svg"
+import piggyLoopImg from "../images/piggy-loop.svg"
 import { ExpenseCategory } from "../models/ExpenseCategory"
 import { ExpensePaymentMethod } from "../models/ExpensePaymentMethod"
-import { OneTimeExpenseStatus } from "../models/OneTimeExpenseStatus"
+import { RecurringExpenseFrequencyType } from "../models/RecurringExpenseFrequencyType"
+import { RecurringExpenseStatus } from "../models/RecurringExpenseStatus"
 
-export const AddOneTimeExpense = () => {
-  useDocumentTitle("Nuevo gasto puntual – Balancer")
+export const AddRecurringExpense = () => {
+  useDocumentTitle("Nuevo gasto recurrente – Balancer")
 
-  const { register, formState, handleSubmit } = useForm()
+  const { register, watch, formState, handleSubmit } = useForm()
   const [ loading, setLoading ] = useState(false)
   const [ added, setAdded ] = useState(false)
+
+  const watchFrequencyType = watch("frequencyType")
 
   const navigate = useNavigate()
 
   const submit = (data) => {
     setLoading(true)
     ExpensesApi.registerExpense(settings.defaultUser.id,{
-      type: "one_time",
-      oneTimeExpenseStatus: (data.pending ? OneTimeExpenseStatus.Pending : OneTimeExpenseStatus.Done).name,
+      type: "recurring",
+      recurringExpenseStatus: RecurringExpenseStatus.Active.name,
       category: data.category,
       recipientId: settings.defaultRecipient.id,
       concept: data.concept,
       amount: data.amount,
       amountType: data.amountType,
       paymentMethod: data.paymentMethod,
+      frequency: {
+        type: data.frequencyType,
+        parameter: data.frequencyParameter ? parseInt(data.frequencyParameter) : null
+      },
+      firstPaymentDate: data.firstPaymentDate,
       hiddenInPlans: !data.shownInPlans
     })
       .then((response) => {
@@ -50,7 +58,7 @@ export const AddOneTimeExpense = () => {
     <article>
       <Container className="align-items-center">
         <Row>
-          <Col><h1 className="mb-4">Nuevo gasto puntual</h1></Col>
+          <Col><h1 className="mb-4">Nuevo gasto recurrente</h1></Col>
         </Row>
       </Container>
       <Container style={{maxWidth: "485px"}}>
@@ -58,7 +66,7 @@ export const AddOneTimeExpense = () => {
           <Col>
 
             <div className="text-center">
-              <img style={{width: "11rem"}} src={piggyPlusImg} alt="Piggy" className="ms-4 mb-4" />
+              <img style={{width: "11rem"}} src={piggyLoopImg} alt="Piggy" className="ms-4 mb-4" />
             </div>
 
             <div className={`loader-wrapper mb-3 ${!loading && "hidden"}`}>
@@ -113,16 +121,39 @@ export const AddOneTimeExpense = () => {
                     <option key={paymentMethod.name} value={paymentMethod.name}>{capitalize(paymentMethod.humanName)}</option>
                   ))}
                 </Form.Select>
-                {formState.errors?.paymentMethod && <Form.Text className="text-danger">Selecciona un método de pago</Form.Text>}
+                {formState.errors.paymentMethod && <Form.Text className="text-danger">Selecciona un método de pago</Form.Text>}
               </Form.Group>
 
               <Form.Group className="mb-3">
-                <Form.Check type="checkbox" label="Mostrar en las planificaciones mensuales" {...register("shownInPlans")} defaultChecked={true} />
+                <Form.Label>Frecuencia</Form.Label>
+                <InputGroup>
+                  <Form.Select aria-label="Tipo..." {...register("frequencyType", {
+                    validate: (value) => value !== "null"
+                  })} defaultValue={"null"}>
+                    <option value="null" disabled>Selecciona un tipo...</option>
+                    {RecurringExpenseFrequencyType.values().map((frequencyType) => (
+                      <option key={frequencyType.name} value={frequencyType.name}>{capitalize(frequencyType.selectName)}</option>
+                    ))}
+                  </Form.Select>
+                  {
+                    RecurringExpenseFrequencyType.needsParameter(watchFrequencyType) &&
+                      <Form.Control type="number" placeholder="Día" {...register("frequencyParameter", { required: true })} />
+                  }
+                </InputGroup>
+                {formState.errors.frequencyType && <Form.Text className="text-danger">Selecciona un tipo de frecuencia</Form.Text>}
+                {RecurringExpenseFrequencyType.needsParameter(watchFrequencyType) &&
+                  formState.errors.frequencyParameter &&
+                  <Form.Text className="text-danger">Introduce un día</Form.Text>}
+              </Form.Group>
+
+              <Form.Group className="mb-3">
+                <Form.Label>Comienzo</Form.Label>
+                <Form.Control type="date" placeholder="Comienzo" {...register("firstPaymentDate", {required: true})} />
+                {formState.errors.firstPaymentDate && <Form.Text className="text-danger">Introduce una fecha de inicio</Form.Text>}
               </Form.Group>
 
               <Form.Group className="mb-5">
-                <Form.Check type="checkbox" label="Pagado" {...register("paid")} />
-                <Form.Text className="text-muted">¿Has pagado ya este gasto?</Form.Text>
+                <Form.Check type="checkbox" label="Mostrar en las planificaciones mensuales" {...register("shownInPlans")} defaultChecked={true} />
               </Form.Group>
 
               <div className="text-end">
@@ -131,7 +162,7 @@ export const AddOneTimeExpense = () => {
             </Form>
             }
 
-            {added && <SuccessCard text="Has añadido un gasto puntual." button={
+            {added && <SuccessCard text="Has añadido un gasto recurrente." button={
               <Button variant="outline-dark" onClick={() => navigate("/expenses")}>Ver mis gastos <PiArrowRight /></Button>
             } />}
           </Col>
